@@ -329,7 +329,13 @@
     { title: 'Разместим семена', points: ['Товар храним на паллетах', 'На складе — датчики температуры и влажности', 'Охрана и видеонаблюдение'], image: 'storage', paper: 'Хранение', note: 'На паллетах' },
     { title: 'Выдадим товар', points: ['Проверяем доверенность представителя', 'Оформляем возврат по акту МХ-3', 'Загружаем товар'], image: 'dispatch', paper: 'Выдача', note: 'Акт МХ-3' },
   ];
-  stages.forEach(stage => { const image = new Image(); image.src = `assets/process-${stage.image}.svg`; });
+  // Keep decoded illustrations ready before their first transition.
+  const stageImages = stages.map(stage => {
+    const image = new Image();
+    image.src = `assets/process-${stage.image}.svg`;
+    image.decode().catch(() => {});
+    return image;
+  });
   const player = document.querySelector('.stage-player');
   const tabs = [...player.querySelectorAll('[data-step]')];
   tabs.forEach(tab => {
@@ -396,7 +402,7 @@
       item.textContent = text;
       return item;
     }));
-    player.querySelector('#stage-image').src = `assets/process-${stage.image}.svg`;
+    player.querySelector('#stage-image').src = stageImages[index].src;
     player.querySelector('.stage-art-title').textContent = stage.paper;
     player.querySelector('.stage-art-note').textContent = stage.note;
     tabs.forEach((tab, i) => tab.setAttribute('aria-pressed', String(i === index)));
@@ -414,34 +420,23 @@
     currentStage = index;
     const version = ++transitionVersion;
     const parts = [stageTitle, stagePoints, player.querySelector('.stage-art')];
-    const visibleFrames = parts.map(element => {
-      const style = getComputedStyle(element);
-      return { opacity: style.opacity, transform: style.transform, filter: style.filter };
-    });
     stageAnimations.forEach(animation => animation.cancel());
+    stageAnimations = [];
     transitioning = true;
     pausePlayback();
     remaining = interval;
     resetButtonFill();
-    tabs.forEach((tab, i) => tab.setAttribute('aria-pressed', String(i === index)));
+    // Commit the button, copy and illustration together, before any animation.
+    renderStage(index, automatic);
     if (motionAllowed()) {
       stageAnimations = parts.map((element, i) => element.animate([
-        visibleFrames[i],
-        { opacity: 0, transform: `translateX(${-direction * (i === 2 ? 90 : 38)}px) scale(.96)`, filter: 'blur(4px)' },
-      ], { duration: duration('--duration-stage-exit'), easing: token('--ease-standard'), fill: 'forwards' }));
-      await Promise.all(stageAnimations.map(animation => animation.finished.catch(() => {})));
-      if (version !== transitionVersion) return;
-      renderStage(index, automatic);
-      stageAnimations.forEach(animation => animation.cancel());
-      stageAnimations = parts.map((element, i) => element.animate([
         { opacity: 0, transform: i === 2
-          ? `translateX(${direction * 110}px) rotate(${direction * 7}deg) scale(.88)`
-          : `translateX(${direction * 52}px) translateY(12px)`, filter: 'blur(5px)' },
-        { opacity: 1, transform: 'translateX(0) translateY(0) rotate(0) scale(1)', filter: 'blur(0px)' },
-      ], { duration: duration(i === 2 ? '--duration-stage-art' : '--duration-enter'),
-        delay: i === 2 ? 0 : i * duration('--duration-stage-stagger'), easing: token('--ease-out'), fill: 'both' }));
+          ? `translateX(${direction * 60}px) rotate(${direction * 3}deg) scale(.94)`
+          : `translateX(${direction * 24}px) translateY(6px)` },
+        { opacity: 1, transform: 'translateX(0) translateY(0) rotate(0) scale(1)' },
+      ], { duration: duration('--duration-stage-change'), easing: token('--ease-out'), fill: 'both' }));
       await Promise.all(stageAnimations.map(animation => animation.finished.catch(() => {})));
-    } else renderStage(index, automatic);
+    }
     if (version !== transitionVersion) return;
     stageAnimations.forEach(animation => animation.cancel());
     stageAnimations = [];
