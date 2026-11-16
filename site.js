@@ -324,10 +324,10 @@
   });
 
   const stages = [
-    { title: 'Согласуем условия', points: ['Вид семян и объём партии', 'Дата приёмки и срок хранения', 'Стоимость хранения и дополнительных работ'], image: 'agreement', paper: 'Заявка', note: 'Объём · Дата · Срок' },
-    { title: 'Примем товар', points: ['Выгрузка и проверка упаковки', 'Акт приёма-передачи МХ-1', 'Подписи обеих сторон'], image: 'receipt', paper: 'Приёмка', note: 'Проверяем · Оформляем МХ-1' },
-    { title: 'Разместим на складе', points: ['Размещение на паллетах', 'Датчики температуры и влажности', 'Охрана и видеонаблюдение'], image: 'storage', paper: 'Хранение', note: 'На паллетах' },
-    { title: 'Выдадим партию', points: ['Выдача представителю по доверенности', 'Акт возврата товара МХ-3', 'Акт оказанных работ и счёт-фактура'], image: 'dispatch', paper: 'Выдача', note: 'По доверенности · МХ-3' },
+    { title: 'Согласуем условия', points: ['Какие семена и сколько привезёте', 'Дата поставки и срок хранения', 'Стоимость хранения и складских работ'], image: 'agreement', paper: 'Заявка', note: 'Объём · Дата · Срок' },
+    { title: 'Примем на склад', points: ['Выгружаем товар', 'Проверяем целостность упаковки', 'Подписываем акт МХ-1'], image: 'receipt', paper: 'Приёмка', note: 'Акт МХ-1' },
+    { title: 'Разместим семена', points: ['Товар храним на паллетах', 'На складе — датчики температуры и влажности', 'Охрана и видеонаблюдение'], image: 'storage', paper: 'Хранение', note: 'На паллетах' },
+    { title: 'Выдадим товар', points: ['Проверяем доверенность представителя', 'Оформляем возврат по акту МХ-3', 'Загружаем товар'], image: 'dispatch', paper: 'Выдача', note: 'Акт МХ-3' },
   ];
   stages.forEach(stage => { const image = new Image(); image.src = `assets/process-${stage.image}.svg`; });
   const player = document.querySelector('.stage-player');
@@ -547,7 +547,7 @@
       phone.focus();
       return;
     }
-    preview.textContent = `Запрос на хранение семян\n\nИмя: ${name.value.trim()}\nТелефон: ${phone.value.trim()}\n\n${form.querySelector('#message').value.trim() || 'Объём и срок хранения пока не указаны.'}`;
+    preview.textContent = `Запрос на хранение семян\n\nИмя: ${name.value.trim()}\nТелефон: ${phone.value.trim()}\n\n${form.querySelector('#message').value.trim() || 'Сведения о партии не указаны.'}`;
     dialog.querySelector('#copy-status').textContent = '';
     dialog.showModal();
   });
@@ -555,7 +555,7 @@
   dialog.querySelector('#copy-request').addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(preview.textContent);
-      dialog.querySelector('#copy-status').textContent = 'Текст скопирован. Запрос не отправлен.';
+      dialog.querySelector('#copy-status').textContent = 'Текст скопирован.';
     } catch {
       dialog.querySelector('#copy-status').textContent = 'Выделите текст запроса и скопируйте его вручную.';
     }
