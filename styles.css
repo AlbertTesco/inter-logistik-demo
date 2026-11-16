@@ -448,3 +448,19 @@ dialog pre { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; padd
   .service .point-list,.accordion summary,.answer { font-size: var(--type-ui); }
   .contact-section .field input,.contact-section .field textarea { font-size: var(--type-ui); }
 }
+
+/* Editorial headings, practical sans-serif text: two families, two clear roles. */
+h1,h2 { font-family: var(--font-editorial); font-weight: var(--weight-regular); font-optical-sizing: auto; letter-spacing: -.04em; line-height: 1.13; }
+h1 em,h2 em { font-weight: inherit; font-style: italic; color: var(--color-accent); }
+.hero-copy h1 em { font-style: italic; font-weight: var(--weight-regular); }
+h3 { font-weight: var(--weight-semibold); letter-spacing: -.035em; }
+.eyebrow { font-size: var(--type-eyebrow); font-weight: var(--weight-medium); line-height: var(--leading-ui); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; color: var(--color-accent); margin-bottom: var(--space-5); }
+.section-description,.hero-description { text-wrap: pretty; }
+.service-number { font-family: var(--font-editorial); font-weight: var(--weight-regular); font-style: italic; letter-spacing: -.05em; }
+.hero-facts dt { font-family: var(--font-editorial); font-weight: var(--weight-regular); }
+.stage-tab > span { font-variant-numeric: tabular-nums; opacity: .7; }
+@media (max-width: 640px) {
+  .eyebrow { margin-bottom: var(--space-4); }
+  .service h3 { letter-spacing: -.025em; }
+  .hero-copy h1 { line-height: 1.14; }
+}

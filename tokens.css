@@ -55,7 +55,10 @@
   --color-glow-leaf: #77946b28;
   --color-media-shade: #081b15dd;
   --color-backdrop: #07140edb;
-  --font-display: 'Manrope', sans-serif;
+  --font-display: 'Golos Text', sans-serif;
+  --font-editorial: 'Literata', Georgia, serif;
+  --type-eyebrow: .75rem;
+  --tracking-eyebrow: .14em;
   --font-body: 'Golos Text', sans-serif;
   --type-hero: clamp(4rem, 5.8vw, 5.5rem);
   --type-section: clamp(2.5rem, 3.7vw, 3.5rem);
