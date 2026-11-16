@@ -86,9 +86,10 @@ button:disabled { cursor: not-allowed; opacity: .55; }
 .service-notes { list-style: none; display: flex; gap: var(--space-6); flex-wrap: wrap; margin-top: var(--space-8); margin-bottom: 0; color: var(--color-muted); font-size: var(--type-small); }
 .service-notes li { max-width: 40ch; }
 .warehouse-composition { display: grid; grid-template-columns: 1.65fr 1fr; gap: var(--space-4); }
-.warehouse-media { aspect-ratio: 1.8; min-height: 330px; }
+.warehouse-media { width: 100%; min-width: 0; aspect-ratio: 1.8; min-height: 330px; }
 .warehouse-media img { object-position: center 52%; transform: scale(1.08); }
-.location-panel { display: flex; flex-direction: column; align-items: start; justify-content: space-between; gap: var(--space-6); padding: var(--space-8); border-radius: var(--radius-card); background: var(--color-accent); color: var(--color-bg); }
+.location-panel { display: flex; flex-direction: column; align-items: start; justify-content: space-between; min-width: 0; gap: var(--space-6); padding: var(--space-8); border-radius: var(--radius-card); background: var(--color-accent); color: var(--color-bg); }
+.location-panel .btn { max-width: 100%; }
 .location-panel > .icon { width: 24px; height: 24px; }
 .location-panel h3 { font-size: clamp(1.5rem,2.3vw,2.125rem); margin-bottom: var(--space-3); }
 .location-panel address { font-style: normal; font-size: 1.25rem; line-height: var(--leading-ui); }
@@ -358,7 +359,7 @@ dialog pre { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; padd
 .warehouse-section { background: var(--color-editorial-paper); color: var(--color-editorial-ink); --color-text: var(--color-editorial-ink); --color-muted: var(--color-editorial-muted); --color-accent: var(--color-editorial-ink); }
 .warehouse-section .section-heading { display: grid; grid-template-columns: 1.2fr 1fr; align-items: end; gap: var(--space-12); }
 .warehouse-section .section-description { margin-top: 0; max-width: 36ch; }
-.warehouse-section .warehouse-composition { grid-template-columns: 1.8fr 1fr; gap: var(--space-4); }
+.warehouse-section .warehouse-composition { grid-template-columns: minmax(0,1.8fr) minmax(0,1fr); gap: var(--space-4); }
 .warehouse-section .warehouse-media { min-height: 400px; aspect-ratio: 1.9; }
 .warehouse-section .location-panel { background: var(--color-surface); color: var(--color-editorial-paper); }
 .warehouse-section .location-panel .icon { color: var(--color-editorial-gold); }
@@ -393,9 +394,13 @@ dialog pre { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; padd
 }
 @media (max-width: 1000px) {
   .warehouse-section .section-heading { grid-template-columns: 1fr; gap: var(--space-5); }
-  .warehouse-section .warehouse-composition { grid-template-columns: 1.4fr 1fr; }
+  .warehouse-section .warehouse-composition { grid-template-columns: minmax(0,1.4fr) minmax(0,1fr); }
   .warehouse-section .warehouse-media { min-height: 360px; }
   .contact-section .contact-grid { gap: var(--space-10); }
+}
+@media (max-width: 800px) {
+  .warehouse-section .warehouse-composition { grid-template-columns: minmax(0,1fr); }
+  .warehouse-section .warehouse-media { min-height: 0; aspect-ratio: 1.4; }
 }
 @media (max-width: 640px) {
   .services-section .field-media { height: 160px; }
