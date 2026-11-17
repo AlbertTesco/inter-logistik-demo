@@ -478,11 +478,12 @@ h3 { font-weight: var(--weight-semibold); letter-spacing: -.035em; }
   min-height: min-content;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   padding-block: clamp(16px,4vh,48px);
 }
-.hero-grid { flex: 1; min-height: min-content; gap: clamp(12px,3vh,40px); }
+.hero-grid { flex: 0; min-height: min-content; gap: clamp(12px,3vh,40px); }
 .hero-copy { flex-shrink: 0; }
-.hero-facts { flex-shrink: 0; margin-top: clamp(16px,4vh,48px); }
+.hero-facts { flex-shrink: 0; margin-top: clamp(16px,3vh,32px); }
 @media (max-height: 800px) {
   .hero-copy h1 { font-size: clamp(2.125rem,8.5vh,4.5rem); }
   .hero-description { margin-top: var(--space-4); }
@@ -522,7 +523,7 @@ h3 { font-weight: var(--weight-semibold); letter-spacing: -.035em; }
 
 /* Keep the introduction in the middle, with a quiet route to the next section. */
 .hero-grid { justify-content: center; }
-.hero-scroll { position: relative; z-index: 1; display: flex; flex-shrink: 0; align-self: center; align-items: center; justify-content: center; gap: var(--space-3); min-height: var(--touch-target); margin-top: var(--space-2); color: var(--color-muted); font-size: var(--type-caption); text-decoration: none; }
+.hero-scroll { position: absolute; bottom: var(--space-2); left: 50%; transform: translateX(-50%); z-index: 1; display: flex; flex-shrink: 0; align-self: center; align-items: center; justify-content: center; gap: var(--space-3); min-height: var(--touch-target); margin: 0; color: var(--color-muted); font-size: var(--type-caption); text-decoration: none; }
 .hero-scroll .icon { color: var(--color-accent); }
 .hero-scroll:hover { color: var(--color-accent); }
 @media (prefers-reduced-motion: no-preference) {
@@ -533,10 +534,13 @@ h3 { font-weight: var(--weight-semibold); letter-spacing: -.035em; }
   .hero-copy { width: 100%; text-align: center; }
   .hero-description { margin-inline: auto; }
   .hero .actions { justify-content: center; }
-  .hero-scroll { margin-top: var(--space-1); }
 }
 @media (min-width: 641px) and (max-height: 600px) {
   .hero-grid { padding-right: calc(var(--page-frame) + var(--touch-target)); align-items: center; }
-  .hero-scroll { position: absolute; right: var(--page-frame); top: calc(50% - 22px); width: var(--touch-target); margin: 0; }
+  .hero-scroll { position: absolute; left: auto; bottom: auto; transform: none; right: var(--page-frame); top: calc(50% - 22px); width: var(--touch-target); margin: 0; }
   .hero-scroll span { display: none; }
 }
+
+/* Reserve only the scroll cue; keep facts attached to the introduction. */
+.hero { padding-bottom: calc(var(--touch-target) + var(--space-4)); }
+@media (min-width: 641px) and (max-height: 600px) { .hero { padding-bottom: var(--space-3); } }
