@@ -98,6 +98,7 @@
   --control-height: 52px;
   --icon-size: 20px;
   --icon-stroke: 1.6;
+  --header-height: 96px;
   --container-max: 1440px;
   --content-container-max: 1640px;
   --content-type-section: clamp(2.75rem, 4vw, 4rem);

@@ -52,9 +52,8 @@ button:disabled { cursor: not-allowed; opacity: .55; }
 .hero-backdrop { position: absolute; inset: 0; z-index: -2; pointer-events: none; overflow: hidden; }
 .hero-backdrop img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .hero::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(90deg,var(--color-bg) 5%,color-mix(in srgb,var(--color-bg) 90%,transparent) 35%,transparent 80%),linear-gradient(0deg,var(--color-bg),transparent 25%); }
-.hero-grid { display: flex; flex-direction: column; align-items: start; justify-content: space-between; gap: var(--space-12); min-height: 490px; }
+.hero-grid { display: flex; flex-direction: column; align-items: start; justify-content: space-between; gap: var(--space-12); min-height: 0; }
 .hero-copy { max-width: 680px; }
-.hero-caption { align-self: end; font-size: var(--type-caption); color: var(--color-muted); }
 .hero-copy h1 em { font-style: normal; color: var(--color-accent); font-weight: var(--weight-medium); }
 .hero-description { margin-top: var(--space-6); max-width: 40ch; color: var(--color-muted); font-size: 1.125rem; }
 .media { position: relative; overflow: hidden; border-radius: var(--radius-card); background: var(--color-raised); }
@@ -245,11 +244,10 @@ dialog pre { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; padd
   .site-nav a { font-size: var(--type-ui); }
   .header-tools { gap: var(--space-2); }
   .hero { padding-top: var(--space-6); padding-bottom: var(--space-8); }
-  .hero-grid { gap: var(--space-8); min-height: 560px; }
+  .hero-grid { gap: var(--space-8); min-height: 0; }
   .hero-copy { max-width: 100%; }
   .hero-backdrop img { object-position: 62% center; }
   .hero::after { background: linear-gradient(180deg,var(--color-bg) 0%,color-mix(in srgb,var(--color-bg) 85%,transparent) 45%,transparent 85%),linear-gradient(0deg,var(--color-bg),transparent 15%); }
-  .hero-caption { align-self: start; }
   .hero-copy h1 { max-width: none; }
   .hero-description { margin-top: var(--space-5); max-width: 36ch; }
   .actions { gap: var(--space-3); margin-top: var(--space-6); }
@@ -471,4 +469,53 @@ h3 { font-weight: var(--weight-semibold); letter-spacing: -.035em; }
   .eyebrow { margin-bottom: var(--space-4); }
   .service h3 { letter-spacing: -.025em; }
   .hero-copy h1 { line-height: 1.14; }
+}
+
+/* Header + hero fill the visible viewport; content below starts after one screen. */
+.hero {
+  height: calc(100vh - var(--header-height));
+  height: calc(100dvh - var(--header-height));
+  min-height: min-content;
+  display: flex;
+  flex-direction: column;
+  padding-block: clamp(16px,4vh,48px);
+}
+.hero-grid { flex: 1; min-height: min-content; gap: clamp(12px,3vh,40px); }
+.hero-copy { flex-shrink: 0; }
+.hero-facts { flex-shrink: 0; margin-top: clamp(16px,4vh,48px); }
+@media (max-height: 800px) {
+  .hero-copy h1 { font-size: clamp(2.125rem,8.5vh,4.5rem); }
+  .hero-description { margin-top: var(--space-4); }
+  .hero .actions { margin-top: var(--space-5); }
+  .hero-facts > div { padding-block: var(--space-3); }
+}
+@media (max-width: 640px) {
+  .hero { padding-block: var(--space-4); }
+  .hero-grid { gap: var(--space-4); }
+  .hero-copy h1 { font-size: var(--type-hero); }
+  .hero-facts { margin-top: var(--space-4); gap: var(--space-3); }
+  .hero-facts > div { padding-block: var(--space-2); }
+  .hero-facts dd { margin-top: var(--space-1); }
+}
+@media (max-width: 640px) and (max-height: 740px) {
+  .hero { padding-block: var(--space-3); }
+  .hero-copy h1 { font-size: clamp(1.875rem,8.5vw,2.5rem); }
+  .hero-description { margin-top: var(--space-3); }
+  .hero .actions { margin-top: var(--space-4); gap: var(--space-2); }
+  .hero .actions .btn { min-height: 44px; }
+  .hero-facts { grid-template-columns: 1fr .9fr 1.3fr; gap: var(--space-2); }
+  .hero-facts > div:last-child { grid-column: auto; }
+  .hero-facts dt { font-size: clamp(.8125rem,3.6vw,1rem); }
+  .hero-facts dd { font-size: var(--type-caption); line-height: 1.35; }
+}
+@media (min-width: 641px) and (max-height: 600px) {
+  .hero { padding-block: var(--space-3); }
+  .hero-grid { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: end; }
+  .hero-copy h1 { font-size: clamp(2rem,8vh,3rem); }
+  .hero-description { font-size: var(--type-small); margin-top: var(--space-2); max-width: 60ch; }
+  .hero .actions { margin-top: var(--space-3); }
+  .hero .btn { min-height: 44px; }
+  .hero-facts { margin-top: var(--space-3); }
+  .hero-facts dt { font-size: 1.25rem; }
+  .hero-facts > div { padding-block: var(--space-2); }
 }

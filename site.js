@@ -9,6 +9,10 @@
   const motionControl = document.querySelector('.motion-control');
   const menuControl = document.querySelector('.menu-control');
   const navigation = document.querySelector('#site-nav');
+  const header = document.querySelector('.site-header');
+  new ResizeObserver(() => {
+    root.style.setProperty('--header-height', `${header.getBoundingClientRect().height}px`);
+  }).observe(header);
 
   function closeMenu() {
     menuControl.setAttribute('aria-expanded', 'false');
