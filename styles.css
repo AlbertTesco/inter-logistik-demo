@@ -519,3 +519,24 @@ h3 { font-weight: var(--weight-semibold); letter-spacing: -.035em; }
   .hero-facts dt { font-size: 1.25rem; }
   .hero-facts > div { padding-block: var(--space-2); }
 }
+
+/* Keep the introduction in the middle, with a quiet route to the next section. */
+.hero-grid { justify-content: center; }
+.hero-scroll { position: relative; z-index: 1; display: flex; flex-shrink: 0; align-self: center; align-items: center; justify-content: center; gap: var(--space-3); min-height: var(--touch-target); margin-top: var(--space-2); color: var(--color-muted); font-size: var(--type-caption); text-decoration: none; }
+.hero-scroll .icon { color: var(--color-accent); }
+.hero-scroll:hover { color: var(--color-accent); }
+@media (prefers-reduced-motion: no-preference) {
+  .motion-running .hero:not(.offscreen) .hero-scroll .icon { animation: scroll-hint var(--duration-float) ease-in-out infinite; }
+  @keyframes scroll-hint { 0%,35%,70%,100% { transform: translateY(-2px); } 50%,85% { transform: translateY(3px); } }
+}
+@media (max-width: 640px) {
+  .hero-copy { width: 100%; text-align: center; }
+  .hero-description { margin-inline: auto; }
+  .hero .actions { justify-content: center; }
+  .hero-scroll { margin-top: var(--space-1); }
+}
+@media (min-width: 641px) and (max-height: 600px) {
+  .hero-grid { padding-right: calc(var(--page-frame) + var(--touch-target)); align-items: center; }
+  .hero-scroll { position: absolute; right: var(--page-frame); top: calc(50% - 22px); width: var(--touch-target); margin: 0; }
+  .hero-scroll span { display: none; }
+}
